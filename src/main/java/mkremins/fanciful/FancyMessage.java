@@ -78,6 +78,10 @@ public class FancyMessage implements JsonRepresentedObject, Cloneable, Iterable<
 		this(rawText(firstPartText));
 	}
 
+	/**
+	 * Creates a JSON message with formatted text.
+	 * @param firstPartText The existing text in the message.
+	 */
 	public FancyMessage(final TextualComponent firstPartText) {
 		messageParts = new ArrayList<MessagePart>();
 		messageParts.add(new MessagePart(firstPartText));
@@ -105,9 +109,12 @@ public class FancyMessage implements JsonRepresentedObject, Cloneable, Iterable<
 
 	/**
 	 * Sets the text of the current editing component to a value.
+	 * <p>If the current text element has text, this function will
+	 * append a new text element to the chain with the specified text.</p>
+	 * <p>This means that when using this function when the current component has text,
+	 * it is identical to using {@link #then(String) then(String)}.</p>
 	 * @param text The new text of the current editing component.
 	 * @return This builder instance.
-	 * @exception IllegalStateException If the text for the current editing component has already been set.
 	 */
 	public FancyMessage text(String text) {
 		MessagePart latest = latest();
@@ -119,6 +126,15 @@ public class FancyMessage implements JsonRepresentedObject, Cloneable, Iterable<
 		return this;
 	}
 
+	/**
+	 * Sets the text of the current editing component to a value.
+	 * <p>If the current text element has text, this function will
+	 * append a new text element to the chain with the specified text.</p>
+	 * <p>This means that when using this function when the current component has text,
+	 * it is identical to using {@link #then(TextualComponent) then(TextualComponent)}.</p>
+	 * @param text The new text of the current editing component.
+	 * @return This builder instance.
+	 */
 	public FancyMessage text(TextualComponent text) {
 		MessagePart latest = latest();
 		if (latest.hasText()) {
