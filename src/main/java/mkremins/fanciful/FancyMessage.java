@@ -112,7 +112,7 @@ public class FancyMessage implements JsonRepresentedObject, Cloneable, Iterable<
 	public FancyMessage text(String text) {
 		MessagePart latest = latest();
 		if (latest.hasText()) {
-			throw new IllegalStateException("text for this message part is already set");
+			return then(text);
 		}
 		latest.text = rawText(text);
 		dirty = true;
@@ -122,7 +122,7 @@ public class FancyMessage implements JsonRepresentedObject, Cloneable, Iterable<
 	public FancyMessage text(TextualComponent text) {
 		MessagePart latest = latest();
 		if (latest.hasText()) {
-			throw new IllegalStateException("text for this message part is already set");
+			return then(text);
 		}
 		latest.text = text;
 		dirty = true;
